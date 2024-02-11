@@ -33,3 +33,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
+
+include("../Includes/admin_footer.php");
