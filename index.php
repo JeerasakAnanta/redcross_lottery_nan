@@ -12,11 +12,13 @@ include("Includes/navigation.php");
     <?php
     // have bar 
     include("./includes/navigation.php");
+
     ?>
 
     <!-- main  concent   -->
     <main>
 
+        <a href="./admin/login_auth.php" class="btn btn-success "> Admin otal </a>
     </main>
 
     <!--  incoude footer -->
