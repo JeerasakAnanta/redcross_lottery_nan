@@ -1,5 +1,5 @@
 <?php
-$servername = "your_host";
+$servername = "loclohsot";
 $username = "your_username";
 $password = "your_password";
 $dbname = "your_database";
@@ -16,4 +16,3 @@ if ($conn->connect_error) {
 
 // Close connection
 $conn->close();
-?>
