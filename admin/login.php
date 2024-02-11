@@ -1,4 +1,6 @@
 <?php
+include('../connection/connect.php');
+
 session_start();
 
 // Check if the form is submitted
@@ -7,15 +9,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Check username and password (this is just a basic example)
-    // In a real-world scenario, you would validate against a database
-    if ($username === "your_username" && $password === "your_password") {
-        // Authentication successful
-        $_SESSION["username"] = $username;
-        header("Location: welcome.php"); // Redirect to a welcome page or dashboard
-        exit();
+    // Assuming you have a 'admin' table with 'username' and 'password' columns
+    $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        // Check if a row is returned
+        if (mysqli_num_rows($result) > 0) {
+            // Authentication successful
+            $_SESSION["username"] = $username;
+            header("Location: welcome.php"); // Redirect to a welcome page or dashboard
+            exit();
+        } else {
+            // Authentication failed
+            $error = "Invalid username or password";
+            header("Location: login_auth.php?error=$error"); // Redirect with an error message
+            exit();
+        }
     } else {
-        // Authentication failed
-        $error = "Invalid username or password";
+        // Query execution failed
+        $error = "Error executing the query";
+        header("Location: login_auth.php?error=$error"); // Redirect with an error message
+        exit();
     }
 }
