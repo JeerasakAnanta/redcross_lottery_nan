@@ -1,10 +1,10 @@
 <?php
 
 // hader  
-include("/includes/header.php");
+include("Includes/header.php");
 
 // have bar 
-include("./includes/navigation.php");
+include("Includes/navigation.php");
 
 ?>
 
