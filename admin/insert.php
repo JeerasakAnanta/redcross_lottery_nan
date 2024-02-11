@@ -56,7 +56,7 @@ include("../Includes/admin_navigation.php");
             </div>
 
             <div class="form-group">
-                <label for="reward_number">Reward Number:</label>
+                <label for="reward_number">เลือกรางวัล:</label>
                 <select class="form-control" name="reward_number" required>
                     <?php foreach ($rewardNumbers as $number) : ?>
                         <option value="<?php echo $number; ?>"><?php echo $number; ?></option>
@@ -64,10 +64,13 @@ include("../Includes/admin_navigation.php");
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">เพิ่มหมายเลข</button>
+            <div class="text-center m-3">
+
+                <button type="submit" class="btn btn-primary">เพิ่มหมายเลข</button>
+            </div>
         </form>
     </div>
-    <div class="container">
+    <div class="container mt-2 ">
         <table class="table">
             <thead>
                 <tr>
