@@ -13,6 +13,3 @@ if ($conn->connect_error) {
 }
 
 // Perform your database operations here...
-
-// Close connection
-$conn->close();
