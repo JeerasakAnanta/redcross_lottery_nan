@@ -1,8 +1,15 @@
 <?php
+// server dev  
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "lottery_db";
+// server dev  
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "lottery_db";
+$username = "redcross";
+$password = "redcross123!!";
+$dbname = "redcross";
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

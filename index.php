@@ -9,12 +9,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Open Camera using WebRTC</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <title>ตรวจผลรางวัล ด้วยการถ่ายภาพ OCR </title>
     <link rel="stylesheet" href="Assets/style.css">
 </head>
 
 <body>
+
     <div id="container">
+        <nav class="nav">
+            <?php
+            include("./Includes/navigation.php")
+            ?>
+        </nav>
 
         <div class="header">
             <span><i class='bx bx-plus-medical'></i></span>
@@ -49,10 +57,16 @@
         </div>
 
     </div>
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Computer Science RMUTL </p>
+        </div>
+    </footer>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script type="module" src="Assets/script/index.js"></script>
+
 </body>
 
 </html>
