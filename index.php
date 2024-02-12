@@ -1,35 +1,58 @@
 <?php
 
-// hader  
-include("Includes/header.php");
-
-// have bar 
-include("Includes/navigation.php");
-
 ?>
 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Open Camera using WebRTC</title>
+    <link rel="stylesheet" href="Assets/style.css">
+</head>
+
 <body>
-    <?php
-    // have bar 
-    include("./includes/navigation.php");
+    <div id="container">
 
-    ?>
+        <div class="header">
+            <span><i class='bx bx-plus-medical'></i></span>
+            <div class="text">
+                <h3>สลากกาชาดประจำปี 2567</h3>
+                <hr>
+                <p>สภากาชาดไทย THAI RED CROSS SOCIETY</p>
+            </div>
+        </div>
 
-    <!-- main  concent   -->
-    <main>
+        <div class="button-group">
+            <button id="btnStream" type="button" class="button"><span><i class='bx bxs-camera' style='color:rgb(7, 18, 63)'></i> สแกนสลาก</span></button>
+            <label id="picture" for="file" class="label custom-file-upload"><span><i class='bx bx-upload'></i>เลือกรูปภาพ</span></label>
+            <input id="file" name="file" type="file" accept="image/*">
+        </div>
 
-        <a href="./admin/login_auth.php" class="btn btn-success "> Admin otal </a>
-    </main>
+        <div style="text-align: center;">
+            <h4>ตรวจผลรางวัลด้วยการถ่ายภาพ</h4>
+        </div>
+        <div id="camera">
+            <video id="stream" width="100%" height="450"></video>
+            <div>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
 
-    <!--  incoude footer -->
-    <?php
-    include("./includes/footer.php")
-    ?>
+        <canvas id="canvas" width="600" height="450"></canvas>
+        <div id="snapshot">
+            <img src="https://placehold.jp/dddddd/ffffff/600x450.png?text=Preview%20Image" id="img1" width="100%">
+        </div>
 
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script type="module" src="Assets/script/index.js"></script>
 </body>
 
 </html>
-
-<?php
-
-?>
