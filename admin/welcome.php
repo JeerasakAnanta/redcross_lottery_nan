@@ -20,14 +20,16 @@ if (isset($_POST["logout"])) {
     exit();
 }
 
-include("../Includes/header.php");
-include("../Includes/navigation.php");
+//   header  admin  
+include("../Includes/admin_header.php");
+
 
 // Include the admin navigation bar
 include("../Includes/admin_navigation.php");
 
 // Assuming you have a database connection
 include('../connection/connect.php');
+
 // Fetch data from the 'lottery' table
 $sql = "SELECT * FROM lottery";
 $result = mysqli_query($conn, $sql);
@@ -39,11 +41,8 @@ $result = mysqli_query($conn, $sql);
         <h3>ยินดีต้อนรับ Admin คุณ <?php echo $_SESSION["username"]; ?>!🧑‍💻</h3>
     </div>
 
-
-
-
     <div class="text-center">
-        <a href="./insert.php" class="btn btn-success "> เพิ่มหมายเลข</a>
+        <a href="./insert.php" class="btn btn-success  mt-3"> เพิ่มหมายเลข</a>
     </div>
 
     <!-- Display data in a table -->
@@ -85,6 +84,11 @@ $result = mysqli_query($conn, $sql);
     ?>
 
 
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+    </script>
 </body>
 
 </html>
