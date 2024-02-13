@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ตวจผลสลาก กาชาด</title>
+    <title>Admin ตวจผลสลาก กาชาด</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
