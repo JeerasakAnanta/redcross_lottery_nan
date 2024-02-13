@@ -7,7 +7,7 @@ include('../Includes/navigation.php');
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
-                <h2 class="mb-4"> Login</h2>
+                <h2 class="mb-4 text-center "> Login</h2>
                 <!-- Display alert if login fails -->
                 <?php if (isset($error)) : ?>
                     <div class="alert alert-danger" role="alert">
@@ -16,15 +16,15 @@ include('../Includes/navigation.php');
                 <?php endif; ?>
 
                 <form action="login.php" method="post">
-                    <div class="form-group">
+                    <div class="form-group mt-3">
                         <label for="username">Username:</label>
                         <input type="text" class="form-control" name="username" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-3">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary mt-3">Login</button>
                 </form>
             </div>
         </div>
