@@ -79,7 +79,7 @@
         </div>
     </footer>
 
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <!-- <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script type="module" src="Assets/script/index.js"></script>
 
