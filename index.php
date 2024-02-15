@@ -106,7 +106,13 @@ if (isset($_SESSION['result'])) {
         <!-- ใส่ข้อมูลรูปภาพที่ถูกจับในแบบซ่อน -->
         <input type="hidden" id="imageData" name="imageData" value="">
         <!-- เมื่อกดปุ่ม Submit ฟอร์มจะถูกส่ง -->
-        <input class="" type="submit" value="Upload Image">
+        <div class="btn-btn">
+            
+        </div>
+        <div class="text text-center mt-3">
+            <button class="btn btn-primary btn-sm" type="submit">ตรวจผลรางวัลด้วยการถ่ายภาพ</button>
+
+        </div>
         </form>
         
             
