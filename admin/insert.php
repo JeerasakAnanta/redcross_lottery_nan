@@ -62,24 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch data from the 'lottery' table
-$sql = "SELECT * FROM lottery";
-$result = mysqli_query($conn, $sql);
-
-// Fetch available reward numbers from the database
-$rewardNumbersQuery = "SELECT DISTINCT reward_number FROM lottery";
-$rewardNumbersResult = mysqli_query($conn, $rewardNumbersQuery);
-
-if ($rewardNumbersResult) {
-    $rewardNumbers = array();
-    while ($rewardRow = mysqli_fetch_assoc($rewardNumbersResult)) {
-        $rewardNumbers[] = $rewardRow['reward_number'];
-    }
-} else {
-    // Default reward numbers if there's an issue fetching from the database
-    $rewardNumbers = array(1, 2, 3, 4, 5, 7);
-}
-
+$rewardNumbers = array(1, 2, 3, 4, 5, 7);
 mysqli_close($conn);
 
 include("../Includes/header.php");
