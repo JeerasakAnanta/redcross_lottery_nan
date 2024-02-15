@@ -1,39 +1,43 @@
 <?php
+session_start();
 
-// Function to read the JSON file and return the data as an array
-function readJsonFile($filename)
+
+// Function to read users from JSON file
+function getUsers()
 {
-    $jsonString = file_get_contents($filename);
-    return json_decode($jsonString, true);
+    $json = file_get_contents('users.json');
+    return json_decode($json, true);
 }
 
-// Function to validate the username and password
-function validateCredentials($username, $password, $users)
+// Function to authenticate user
+function authenticateUser($username, $password)
 {
-    foreach ($users['users'] as $user) {
-        if ($user['username'] === $username && $user['password'] === $password) {
-            return true; // Credentials are valid
+    $users = getUsers();
+    foreach ($users as $user) {
+        if ($user['username'] === $username && password_verify($password, $user['password'])) {
+            return true; // Authentication successful
         }
     }
-    return false; // Credentials are not valid
+    return false; // Authentication failed
 }
 
-// Define the JSON file
-$jsonFile = 'users.json';
-
-// Read the JSON file
-$usersData = readJsonFile($jsonFile);
-
-// Check if the form is submitted using POST method
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validate the credentials
-    if (validateCredentials($username, $password, $usersData)) {
-        echo "Login successful!";
+    // Validate username and password
+    if (!empty($username) && !empty($password)) {
+        // Authenticate user
+        if (authenticateUser($username, $password)) {
+            $_SESSION['username'] = $username;
+            header('Location: welcome.php');
+            exit();
+        } else {
+            $error = 'Invalid username or password';
+        }
     } else {
-        echo "Invalid credentials. Please try again.";
+        $error = 'Please enter both username and password';
     }
 }
 
@@ -44,44 +48,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login Page</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Login</h3>
+                <h2 class="mb-4">Login</h2>
+                <?php if (isset($error)) : ?>
+                    <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
                     </div>
-                    <div class="card-body">
-                        <!-- Login Form -->
-                        <form action="login.php" method="post">
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </form>
-                        <!-- End Login Form -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies (jQuery) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
