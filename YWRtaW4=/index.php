@@ -54,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="mb-4">Login</h2>
+                <h2 class="mb-4 text-center"> Admin Login 🔐</h2>
                 <?php if (isset($error)) : ?>
                     <div class="alert alert-danger"><?php echo $error; ?></div>
                 <?php endif; ?>

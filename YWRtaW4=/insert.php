@@ -3,6 +3,11 @@
 // Include the API file
 include('api.php');
 
+// Include header and navigation
+include("../Includes/header.php");
+include("../Includes/admin_navigation.php");
+
+
 // Check if the form is submitted using POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lottery_number = $_POST['lottery_number'];
@@ -50,6 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Decode the JSON response
         $data_insert = json_decode($response, true);
 
+        header('Location: insert.php');
+        exit();
+
         // Process the $data_insert as needed
         // var_dump($data_insert);
     }
@@ -58,9 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Array of reward numbers
 $rewardNumbers = array(1, 2, 3, 4, 5, 6, 7);
 
-// Include header and navigation
-include("../Includes/header.php");
-include("../Includes/admin_navigation.php");
 ?>
 
 <body>
