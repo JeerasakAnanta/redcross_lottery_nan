@@ -45,7 +45,7 @@
                 <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
                 <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number">
                 </div>
-                <button type="button" class="btn btn-success btn-sm mt-0 mb-4">ตรวจผลรางวัล</button>
+                <button type="button" class="btn btn-info btn-sm mt-0 mb-4">ตรวจผลรางวัล</button>
             </form>
         </div>
 
