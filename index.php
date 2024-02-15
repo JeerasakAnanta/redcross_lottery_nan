@@ -28,6 +28,8 @@
             ?>
         </nav>
 
+        
+
         <div class="header">
             <span><i class='bx bx-plus-medical'></i></span>
             <div class="text">
@@ -35,6 +37,15 @@
                 <hr>
                 <p>สภากาชาดไทย THAI RED CROSS SOCIETY</p>
             </div>
+        </div>
+
+        <div class="row">
+            <form action="#">
+                <div class="mb-3 mt-3">
+                <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
+                <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number">
+                </div>
+            </form>
         </div>
 
         <div class="button-group">
