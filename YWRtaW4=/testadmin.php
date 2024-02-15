@@ -5,17 +5,13 @@ include("../Includes/admin_header.php");
 
 // Include the admin navigation bar
 include("../Includes/admin_navigation.php");
-
-// Assuming you have a database connection
-// include('../connection/connect.php');
-
 // api 
 include("./api.php");
 
 ?>
 
 <body>
-   
+
 
     <div class="text-center">
         <a href="./insert.php" class="btn btn-success  mt-3"> เพิ่มหมายเลข</a>
@@ -52,7 +48,7 @@ include("./api.php");
 
     <script>
         function confirmDelete() {
-            
+
             return confirm(" ‼️ คุณต้องการลบ จริงๆใช้ไหมครับ ‼️");
         }
     </script>
@@ -68,7 +64,3 @@ include("./api.php");
 </body>
 
 </html>
-
-<?php
-mysqli_close($conn);
-?>

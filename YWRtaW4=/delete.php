@@ -1,6 +1,4 @@
 <?php
-// Assuming you have a database connection
-include('../connection/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $id = $_GET['id'];

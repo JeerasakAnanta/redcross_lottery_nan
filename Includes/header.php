@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ตวจผลสลาก กาชาด</title>
+    <title>ตรวจผลรางวัล กาชาด Admin</title>
     <link rel="icon" type="image/x-icon" href="../Assets/image/RedCross.png">
     
     <!-- Required meta tags -->
