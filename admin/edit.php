@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 }
 
 // Fetch available reward numbers
-$rewardNumbers = array("รางวัลที่ 1", "รางวัลที่ 2", "รางวัลที่ 3", "รางวัลที่ 4", "รางวัลที่ 5"); // You can fetch these from your database if needed
+$rewardNumbers = array(1, 2, 3, 4,  5); // You can fetch these from your database if needed
 
 mysqli_close($conn);
 include("../Includes/header.php");

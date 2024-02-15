@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 // Check if the user is logged in
 if (!isset($_SESSION["username"])) {
     header("Location: login_auth.php");
@@ -20,9 +21,8 @@ if (isset($_POST["logout"])) {
     exit();
 }
 
-//   header  admin  
+// header admin
 include("../Includes/admin_header.php");
-
 
 // Include the admin navigation bar
 include("../Includes/admin_navigation.php");
@@ -30,13 +30,12 @@ include("../Includes/admin_navigation.php");
 // Assuming you have a database connection
 include('../connection/connect.php');
 
-// Fetch data from the 'lottery' table
-$sql = "SELECT * FROM lottery";
-$result = mysqli_query($conn, $sql);
+// api 
+include("./api.php");
+
 ?>
 
 <body>
-
     <div class="text-center">
         <h3>ยินดีต้อนรับ Admin คุณ <?php echo $_SESSION["username"]; ?>!🧑‍💻</h3>
     </div>
@@ -59,9 +58,9 @@ $result = mysqli_query($conn, $sql);
                     <th>❗ลบ</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>`
                 <?php
-                while ($row = mysqli_fetch_assoc($result)) {
+                foreach ($data as $row) {
                     echo "<tr>";
                     echo "<td>{$row['lottery_number']}</td>";
                     echo "<td>{$row['reward_number']}</td>";
@@ -76,13 +75,13 @@ $result = mysqli_query($conn, $sql);
 
     <script>
         function confirmDelete() {
+            
             return confirm(" ‼️ คุณต้องการลบ จริงๆใช้ไหมครับ ‼️");
         }
     </script>
     <?php
     include("../Includes/admin_footer.php");
     ?>
-
 
     <script>
         $(document).ready(function() {

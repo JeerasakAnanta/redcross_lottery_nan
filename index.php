@@ -28,7 +28,7 @@
             ?>
         </nav>
 
-        
+
 
         <div class="header">
             <span><i class='bx bx-plus-medical'></i></span>
@@ -42,8 +42,8 @@
         <div class="row text-center">
             <form action="#">
                 <div class="mb-3 mt-3">
-                <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
-                <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number">
+                    <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
+                    <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number">
                 </div>
                 <button type="button" class="btn btn-info btn-sm mt-0 mb-4">ตรวจผลรางวัล</button>
             </form>
@@ -79,7 +79,7 @@
         </div>
     </footer>
 
-    <!-- <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script type="module" src="Assets/script/index.js"></script>
 

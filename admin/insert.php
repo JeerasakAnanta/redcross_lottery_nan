@@ -2,9 +2,53 @@
 // Assuming you have a database connection
 include('../connection/connect.php');
 
+// api 
+include('./api.php');
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lottery_number = $_POST['lottery_number'];
     $reward_number = $_POST['reward_number'];
+
+    header("Access-Control-Allow-Origin: *");
+
+    // Sample data for the request body
+    $postData = [
+        'lottery_number' => $lottery_number,
+        'reward_number' => $reward_number,
+        // Add more key-value pairs as needed
+    ];
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "http://203.158.173.23:3000/api/lotterie",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode($postData), // Encode the data as JSON
+        CURLOPT_HTTPHEADER => [
+            "Content-Type: application/json", // Specify the content type as JSON
+            // Add other headers as needed
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    } else {
+        $data = json_decode($response, true); // Decode the JSON response
+        // Process the $data as needed
+        var_dump($data);
+    }
+
 
     // Insert data into the 'lottery' table
     $sql = "INSERT INTO lottery (lottery_number, reward_number) VALUES ('$lottery_number', '$reward_number')";
@@ -18,24 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch data from the 'lottery' table
-$sql = "SELECT * FROM lottery";
-$result = mysqli_query($conn, $sql);
-
-// Fetch available reward numbers from the database
-$rewardNumbersQuery = "SELECT DISTINCT reward_number FROM lottery";
-$rewardNumbersResult = mysqli_query($conn, $rewardNumbersQuery);
-
-if ($rewardNumbersResult) {
-    $rewardNumbers = array();
-    while ($rewardRow = mysqli_fetch_assoc($rewardNumbersResult)) {
-        $rewardNumbers[] = $rewardRow['reward_number'];
-    }
-} else {
-    // Default reward numbers if there's an issue fetching from the database
-    $rewardNumbers = array("รางวัลที่ 1", "รางวัลที่ 2", "รางวัลที่ 3", "รางวัลที่ 4", "รางวัลที่ 5");
-}
-
+$rewardNumbers = array(1, 2, 3, 4, 5, 7);
 mysqli_close($conn);
 
 include("../Includes/header.php");
@@ -72,7 +99,12 @@ include("../Includes/admin_navigation.php");
             </div>
         </form>
     </div>
-    <div class="container mt-2 ">
+
+    <!-- Display data in a table -->
+    <div class="container mt-auto">
+        <div class="text-center">
+            <h4>ข้อมูล</h4>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -82,9 +114,9 @@ include("../Includes/admin_navigation.php");
                     <th>❗ลบ</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>`
                 <?php
-                while ($row = mysqli_fetch_assoc($result)) {
+                foreach ($data as $row) {
                     echo "<tr>";
                     echo "<td>{$row['lottery_number']}</td>";
                     echo "<td>{$row['reward_number']}</td>";
