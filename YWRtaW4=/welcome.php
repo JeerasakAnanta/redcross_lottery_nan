@@ -1,12 +1,4 @@
 <?php
-session_start();
-
-// Check if the user is not logged in or is not an admin
-if (!isset($_SESSION['username']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-    header('Location: index.php');
-    exit();
-}
-
 // header admin
 include("../Includes/admin_header.php");
 
