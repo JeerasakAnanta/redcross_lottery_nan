@@ -5,10 +5,11 @@
 // $password = "";
 // $dbname = "lottery_db";
 // server dev  
-$servername = "localhost";
-$username = "redcross";
-$password = "redcross123!!";
-$dbname = "redcross";
+
+$servername = "db";
+$username = "admin";
+$password = "p@ssw0rd";
+$dbname = "lotteries";
 
 
 // Create connection
