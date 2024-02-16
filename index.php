@@ -69,7 +69,7 @@ if (isset($_SESSION['result'])) {
     ?> 
     
                         <div class="row text-center">
-                            <form action="test2.php" method="get">
+                            <form action="check_reward.php" method="get">
                                 <div class="mb-3 mt-3">
                                     <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
                                     <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number" pattern="[0-9]{6}" title="กรุณากรอกเลขสลาก 6 หลักเท่านั้น">
@@ -79,7 +79,7 @@ if (isset($_SESSION['result'])) {
                         </div>
 
 
-        <form id="uploadForm" action="test.php" method="post" enctype="multipart/form-data">
+        <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
 
         <div class="button-group">
             <button id="btnStream" type="button" class="button"><span><i class='bx bxs-camera' style='color:rgb(7, 18, 63)'></i> สแกนสลาก</span></button>
@@ -111,7 +111,6 @@ if (isset($_SESSION['result'])) {
         </div>
         <div class="text text-center mt-3">
             <button class="btn btn-primary btn-sm" type="submit">ตรวจผลรางวัลด้วยการถ่ายภาพ</button>
-
         </div>
         </form>
         
