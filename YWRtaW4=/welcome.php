@@ -12,7 +12,7 @@ include("./api.php");
 
 <body>
     <div class="text-center">
-        <h3>ยินดีต้อนรับ Admin </h3>
+        <h3>ยินดีต้อนรับ Admin ครับ </h3>
     </div>
 
     <div class="text-center">
@@ -29,7 +29,8 @@ include("./api.php");
                 <tr>
                     <th>🔢 หมายเลข </th>
                     <th>🏆รางวัล</th>
-                    <th>❗ลบ</th>
+                    <th>❌ลบ</th>
+
                 </tr>
             </thead>
             <tbody>
