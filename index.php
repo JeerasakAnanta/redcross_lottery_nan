@@ -82,15 +82,13 @@ session_start(); // เริ่ม Session
 
             <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
 
-                <div class="button-group">
-                    <button onclick="captureAndUpload()" type="button" class="button"><span><i class='bx bxs-camera' style='color:rgb(7, 18, 63)'></i> สแกนสลาก</span></button>
+                <div class="button-group text-center">
                     <label id="picture" for="file" class="label custom-file-upload"><span><i class='bx bx-upload'></i>เลือกรูปภาพ</span></label>
                     <input id="file" name="image" type="file" accept="image/*">
                 </div>
                 <div class="text text-center mt-3">
                     <button class="btn btn-primary btn-sm" type="submit">ตรวจผลรางวัลด้วยการถ่ายภาพ</button>
                 </div>
-
 
                 <div style="text-align: center;">
                     <h4>ตรวจผลรางวัลด้วยการถ่ายภาพ</h4>
@@ -104,18 +102,28 @@ session_start(); // เริ่ม Session
                     </div>
                 </div>
 
-                <!-- Video element for displaying webcam stream -->
-                <video id="webcamVideo" autoplay style="max-width: 70%;"></video>
+                <!-- display result -->
+                <div style="text-align: center;">
+
+                    <h3 id="result"></h3>
+                </div>
+
+                <!-- vedio -->
+                <div class="container  ">
+                    <!-- Video element for displaying webcam stream -->
+                    <video id="webcamVideo" autoplay style="max-width: 70%;"></video>
+                    <button onclick="captureAndUpload()" type="button" class="button"><span><i class='bx bxs-camera' style='color:rgb(7, 18, 63)'></i> สแกนสลาก</span></button>
+
+                </div>
 
             </form>
 
             <div class="text-center">
                 <!-- Display the captured image -->
                 <img id="capturedImage" style="display: none; max-width: 60%;" alt="Captured Image">
+
             </div>
-            <div style="text-align: center;">
-                <h3 id="result"></h3>
-            </div>
+
 
         <?php
         }
