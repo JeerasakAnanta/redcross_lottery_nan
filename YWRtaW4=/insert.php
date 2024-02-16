@@ -73,27 +73,43 @@ $rewardNumbers = array(1, 2, 3, 4, 5, 6, 7);
         <div class="text-center">
             <h2> 📩<Adr></Adr>เพิ่มหมายเลข</h2>
         </div>
-        <form action="insert.php" method="post">
-            <div class="form-group">
-                <label for="lottery_number">หมายเลข (*6 digits):</label>
-                <input type="text" class="form-control" name="lottery_number" pattern="\d{6}" title="Please enter 6 digits" required>
-            </div>
 
-            <div class="form-group">
-                <label for="reward_number">เลือกรางวัล:</label>
-                <select class="form-control" name="reward_number" required>
-                    <?php foreach ($rewardNumbers as $number) : ?>
-                        <option value="<?php echo $number; ?>">
-                            <?php echo ($number == 7) ? "เลขท้าย 3" : "รางวันที่ " . $number; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+        <div class="container m-3">
 
-            <div class="text-center m-3">
-                <button type="submit" class="btn btn-primary">เพิ่มหมายเลข</button>
-            </div>
-        </form>
+            <form action="insert.php" method="post">
+
+                <!--  เลือกรางวัน -->
+                <div class="form-group ">
+                    <label for="reward_number">เลือกรางวัล:</label>
+                    <select class="form-control" name="reward_number" required>
+                        <?php foreach ($rewardNumbers as $number) : ?>
+                            <option value="<?php echo $number; ?>">
+                                <?php echo ($number == 7) ? "เลขท้าย 3" : "รางวันที่ " . $number; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- เลือกหมายเลข -->
+                <div class="form-group mt-3 ">
+                    <label for="lottery_number">หมายเลข (*6 digits):</label>
+                    <input type="text" class="form-control" name="lottery_number" pattern="\d{6}" title="Please enter 6 digits" required>
+                </div>
+
+                <div class="text-center mt-5">
+                    <!-- <button type="submit" class="btn btn-primary"> <span> <i class="bi bi-plus"></i> เพิ่มหมายเลข </span> </button> -->
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                        เพิ่มหมายเลข
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <!-- Display data in a table -->
@@ -106,7 +122,7 @@ $rewardNumbers = array(1, 2, 3, 4, 5, 6, 7);
                 <tr>
                     <th>🔢 หมายเลข </th>
                     <th>🏆รางวัล</th>
-                    <th>❗ลบ</th>
+                    <th>❌ลบ</th>
                 </tr>
             </thead>
             <tbody>
