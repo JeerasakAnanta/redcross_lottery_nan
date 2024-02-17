@@ -16,6 +16,7 @@ session_start(); // เริ่ม Session
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="Assets/style.css">
+
 </head>
 
 <body>
@@ -72,7 +73,7 @@ session_start(); // เริ่ม Session
                 <form action="check_reward.php" method="get">
                     <div class="mb-3 mt-3">
                         <h6 class="text text-center mb-2">กรอกเลขสลากจำนวน 6 หลัก</h6>
-                        <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number" pattern="[0-9]{6}" title="กรุณากรอกเลขสลาก 6 หลักเท่านั้น">
+                        <input type="text" class="form-control" id="number" placeholder="กรอกเลขสลาก 6 หลัก" name="number" pattern="[0-9]{6}" title="กรุณากรอกเลขสลาก 6 หลักเท่านั้น" required>
                     </div>
                     <button type="submit" class="btn btn-info btn-sm mt-0 mb-4">ตรวจผลรางวัล</button>
                 </form>
@@ -80,24 +81,23 @@ session_start(); // เริ่ม Session
 
 
             <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
-                <div class="button-group text-center">
+
+                <!-- upload image  -->
+                <div class="text-center ">
                     <label id="picture" for="file" class="label custom-file-upload"><span><i class='bx bx-upload'></i>เลือกรูปภาพ</span></label>
-                    <input id="file" name="image" type="file" accept="image/*">
+
+                    <input id="file" type="file" class="form-control" name="image" accept="image/*" required>
+
                 </div>
 
                 <div style="text-align: center;">
                     <h4>ตรวจผลรางวัลด้วยการถ่ายภาพ</h4>
                 </div>
-                <div id="camera">
-                    <video id="stream" width="100%" height="450"></video>
-                    <div>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
+
+
 
                 <canvas id="canvas" width="600" height="450"></canvas>
+
                 <!-- Show selected image -->
                 <div id="snapshot">
                     <img id="selectedImage" src="https://placehold.jp/dddddd/ffffff/600x450.png?text=Preview%20Image" width="100%">
