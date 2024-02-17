@@ -77,9 +77,11 @@ session_start(); // เริ่ม Session
                     </div>
                     <button type="submit" class="btn btn-info btn-sm mt-0 mb-4">ตรวจผลรางวัล</button>
                 </form>
+                <p>-หรือ-</p>
             </div>
 
 
+        
             <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
 
                 <!-- upload image  -->
