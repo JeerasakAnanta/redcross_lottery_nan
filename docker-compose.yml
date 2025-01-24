@@ -1,0 +1,51 @@
+services:
+
+  web_frontend:
+    container_name: web_frontend
+    image: "frontend:0.1.0"
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/var/www/html
+  back_endapi:
+    container_name: back_endapi
+    image: "backend_api:0.1.0"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+    env_file:
+      - .env
+  db:
+    container_name: mysql_db
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306:${MYSQL_PORT}"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '8080:80'
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  db_data:
