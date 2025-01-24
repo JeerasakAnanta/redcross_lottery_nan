@@ -69,10 +69,10 @@ chmod +x build_docker.sh
 ```bash
 ./build_docker.sh
 ```
-- ทดสอบการใช้งานโดยเข้าไปที่
-web (user) http://localhost
-web (admin) http://localhost/admin
-phpmyadmin http://localhost:8080
+## ทดสอบการใช้งานโดยเข้าไปที่
+- web (user) http://localhost
+- web (admin) http://localhost/admin
+- phpmyadmin http://localhost:8080
 - ตัวอย่างการใช้งาน การทำงาน docker ใน docker desktop
 ![dockerps](/documents/dockerps.png)
 ## สร้างฐานข้อมูล MySQL
