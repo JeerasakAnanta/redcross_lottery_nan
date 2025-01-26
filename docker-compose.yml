@@ -22,7 +22,7 @@ services:
       - .env
   db:
     container_name: mysql_db
-    image: mysql:latest
+    image: mysql:9.2.0
     restart: always
     ports:
       - "3306:${MYSQL_PORT}"
@@ -35,9 +35,15 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - redcorss-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      
   phpmyadmin:
     container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin:5.2.2
     restart: always
     environment:
       PMA_HOST: db
