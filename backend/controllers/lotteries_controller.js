@@ -2,6 +2,7 @@ const db = require('../models/sequelize')
 const Joi = require('joi');
 const Lotterie = db.lottery
 
+// addLotterie
 const addLotterie = async (req, res) => {
     const schema = Joi.object({
         lottery_number: Joi.number().integer().required(),
@@ -31,6 +32,7 @@ const addLotterie = async (req, res) => {
     }
 }
 
+// listLotteries
 const listLotteries = async (req, res) => {
     let lotteries = await Lotterie.findAll({ where: {} })
     if (lotteries.length == 0) {
@@ -39,6 +41,7 @@ const listLotteries = async (req, res) => {
     res.status(200).json(lotteries)
 }
 
+// deleteLotterie 
 const deleteLotterie = async (req, res) => {
     const { id } = req.params
 
