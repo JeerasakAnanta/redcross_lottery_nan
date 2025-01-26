@@ -92,3 +92,15 @@ chmod +x build_docker.sh
 ## พัฒนาโปรเจคโดย 
 - [Jeerasak Ananta SS4](https://github.com/JeerasakAnanta) 🍻
 - [Prachya](https://github.com/pabigmz)🚀
+```mermaid
+sequenceDiagram
+    participant Frontend (PHP)
+    participant Backend API
+    participant MySQL (db)
+    participant phpMyAdmin
+
+    Frontend (PHP)->>MySQL (db): เชื่อมต่อผ่าน mysqli (ใช้ host='db')
+    Backend API->>MySQL (db): เชื่อมต่อผ่าน MySQL Driver (host='db')
+    phpMyAdmin->>MySQL (db): เชื่อมต่อผ่าน PMA_HOST='db'
+
+```
