@@ -4,7 +4,6 @@ import {
   DisclosurePanel,
   Menu,
   MenuButton,
-  MenuItems,
   MenuItem,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
