@@ -1,172 +1,616 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 body {
-    /* background-color: rgb(157, 255, 255); */
     font-family: 'Noto Sans Thai', sans-serif;
-    background-image: url("image/bg.jpg");
-    padding-top: 3rem;
+    width: 100vw;
 }
 
-#container {
-    padding: 16px;
+.container-box {
+    display: grid; /* ใช้ CSS Grid */
+    place-items: center; /* จัดให้อยู่ตรงกลางทั้งแนวนอนและแนวตั้ง */
+    background: linear-gradient(to bottom, #ff0000, #ffcccc);
 }
 
-#canvas,
-#camera,
-input[type=file] {
-    display: none
-}
-
-.label {
-    display: inline-block;
-    margin: 4px
-}
-
-.label span i {
-    font-weight: 300;
-    font-size: 20px;
-    margin-right: 4px;
-}
-
-.button {
-    width: 100%;
-    background-color: #FFD700;
-    color: rgb(7, 18, 63);
-    padding: 10px 40px 10px;
-    margin: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    height: 58px;
-    text-align: center;
-}
-
-.button span i {
-    position: absolute;
-    margin-top: 3px;
-    margin-left: -20px;
-}
-
-.button-group {
+header .header {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.button-group button {
-    width: 49.4%;
-    border-radius: 1.8rem;
-}
-
-.button-group label {
-    border-radius: 1.8rem;
-}
-
-.disable {
-    background-color: #efefef;
-    color: #777;
-}
-
-#stream,
-#snapshot img,
-#canvas {
-    width: 100%;
-    height: 360px;
-}
-
-.custom-file-upload {
-    width: 49.4%;
-    border-radius: 4px;
-    background-color: #06c755;
-    padding: 10px 1px 10px;
-    padding-top: 20px;
-    cursor: pointer;
-    margin: 8px;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center
-}
-
-#camera {
-    position: relative;
-}
-
-#camera div {
-    cursor: pointer;
-}
-
-#camera span {
-    position: absolute;
-    border-radius: 50%;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+header .header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: 500px;
+
+    & img {
+        width: 80px;
+        margin-right: 1rem;
+    }
+
+    color: white;
+
+    & hr {
+        color: white;
+        outline: none;
+        border: 1px solid white;
+    }
+}
+
+.head-text {
+    color: white;
+}
+
+main .container {
+    display: flex;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+main .container .btn-select {
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+
+    & .btn {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-family: 'Noto Sans Thai', sans-serif;
+        padding: 10px;
+        border-radius: 20px;
+        margin-bottom: 5px;
+    }
+
+    & .btn-primary {
+        background-color: white;
+        color: #777;
+        margin-left: 2rem;
+        margin-right: 0.5rem;
+    }
+
+    & .btn-secondary {
+        background-color: white;
+        color: #777;
+        margin-right: 2rem;
+        margin-left: 0.5rem;
+        hyphens: auto;
+    }
+
+    & .active {
+        background-color: rgb(189, 189, 84);
+        color: black;
+    }
+}
+
+main .container p {
+    width: 500px;
+    color: white;
+    font-size: 10px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+}
+
+.upload_lottery {
+    width: 500px;
+    display: flex; /* ใช้ Flexbox */
+    flex-direction: column; /* จัดเรียงเนื้อหาในแนวตั้ง */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    height: 500px;
+    text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+}
+
+.upload_lottery form {
+    margin-top: 1rem; /* เพิ่มระยะห่างระหว่างฟอร์มและหัวข้อ */
+}
+
+.upload_lottery h3 {
+    margin-bottom: 1rem; /* เพิ่มระยะห่างด้านล่างของหัวข้อ */
+    color: white;
+}
+
+input[type="file"] {
+    display: none; /* ซ่อนปุ่มอัพโหลดไฟล์ */
+}
+
+.upload_lottery form label {
+    display: inline-flex;
+    color: white;
+    background-color: #3140b6;
+    text-align: center;
+    padding: 15px 40px;
+    letter-spacing: 1.5px;
+    font-size: 18px;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+
+    & i {
+        display: flex;
+        font-size: 18px;
+        margin-right: 10px;
+        align-items: center;
+    }
+}
+
+.upload_lottery form label:hover {
+    transform: scale(0.9);
+}
+
+
+
+
+
+
+
+.input_text {
+    display: flex; /* ใช้ Flexbox */
+    justify-content: center; /* จัดให้อยู่ตรงกลางแนวนอน */
+    align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    height: 500px; /* ใช้ความสูงของหน้าจอทั้งหมด */
+
+    & h3 {
+        color: white;
+        text-align: center;
+    }
+}
+
+.input_text form {
+    width: 400px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
+    justify-content: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
+}
+
+.input_text form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    border: none;
+    outline: none;
+}
+
+.input_text form button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    border: none;
+    outline: none;
+    background-color: #3140b6;
+    color: white;
+    cursor: pointer;
+}
+
+
+footer {
+    width: 100%;
+    display: flex;
     justify-content: center;
 }
 
-#camera span:first-of-type {
-    background: white;
-    width: 80px;
-    height: 80px;
-}
-
-#camera span:nth-of-type(2) {
-    background: black;
-    bottom: 24px;
-    width: 72px;
-    height: 72px;
-}
-
-#camera span:last-of-type {
-    background: white;
-    bottom: 28px;
-    width: 64px;
-    height: 64px;
-}
-
-@media only screen and (min-width: 960px) {
-    #container {
-        width: 36%;
-        margin: 0 auto
-    }
-
-    #stream,
-    #snapshot img,
-    #canvas {
-        height: 450px;
-    }
-
-
-}
-
-.header {
+footer .container {
+    width: 500px;
     display: flex;
-    align-items: center;
-    /* border: 2px solid red; */
-    margin-bottom: 2rem;
+    justify-content: center;
 }
 
-.header i {
-    color: red;
-    font-size: 45px;
-    margin-right: 1rem;
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.header h3 {
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;
+    height: 500px;
+    border-radius: 20px;
 }
 
-.header p {
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
+.head-modal {
+    display: flex;
+    justify-content: center;   
+    
+    & img {
+        width: 100px;
+    }
 }
+.modal-content h2,h3 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #3140b6;
+}
+.modal-content p {
+    text-align: center;
+    color: #777;
+}
+
+.modal-content span {
+    cursor: pointer;
+}
+
+
+
+
+@media (min-width: 360px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 360px;
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main .container .btn-select {
+        display: flex;
+        width: 375px;
+        justify-content: space-between;
+    }
+
+    main .container p {
+        width: 375px;
+        padding: 0 2rem;
+        margin-bottom: 2rem ;
+    }
+
+
+    main {
+        flex-grow: 1;
+    }
+
+    .input_text form {
+        width: 290px;
+    }
+
+    footer .container {
+        width: 375px;
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        height: 400px;
+
+        & p {
+            font-size: 12px;
+        }
+
+        & h2 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        & h3 {
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}
+
+
+@media (min-width: 375px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 375px;
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main .container .btn-select {
+        display: flex;
+        width: 375px;
+        justify-content: space-between;
+    }
+
+    main .container p {
+        width: 375px;
+        padding: 0 2rem;
+        margin-bottom: 2rem ;
+    }
+
+
+    main {
+        flex-grow: 1;
+    }
+
+    .input_text form {
+        width: 290px;
+    }
+
+    footer .container {
+        width: 375px;
+    }
+
+    .modal-content {
+        width: 80%;
+        height: 500px;
+
+        & p {
+            font-size: 14px;
+        }
+
+        & h2 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        & h3 {
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+}
+
+@media (min-width: 380px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px); /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 100%;
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main .container .btn-select {
+        display: flex;
+        width: 380px;
+        justify-content: space-between;
+    }
+
+    main .container p {
+        width: 380px;
+        padding: 0 2rem;
+        margin-bottom: 2rem ;
+    }
+
+
+    main {
+        flex-grow: 1;
+    }
+
+    .input_text form {
+        width: 330px;
+    }
+
+    footer .container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 390px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 100%;
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main .container .btn-select {
+        display: flex;
+        width: 375px;
+        justify-content: space-between;
+    }
+
+    main .container p {
+        width: 80%;
+        padding: 0 2rem;
+        margin-bottom: 2rem ;
+    }
+
+
+    main {
+        flex-grow: 1;
+    }
+
+    .input_text form {
+        width: 290px;
+    }
+
+    footer .container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 410px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px); /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 414px;
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main .container .btn-select {
+        display: flex;
+        width: 414px;
+        justify-content: space-between;
+    }
+
+    main .container p {
+        width: 414px;
+        padding: 0 2rem;
+        margin-bottom: 2rem ;
+    }
+
+
+    main {
+        flex-grow: 1;
+    }
+
+    .input_text form {
+        width: 360px;
+    }
+
+    footer .container {
+        width: 414px;
+    }
+}
+
+@media (min-width: 428px) {
+    body {
+        font-size: 14px; /* ลดขนาดฟอนต์หลัก */
+    }
+
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px); /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 428px;
+    }
+
+    heaer .header {
+        width: 100%; /* ใช้ความกว้างเต็มหน้าจอ */
+    }
+
+    header .header .container {
+        width: 90%; /* ปรับความกว้างเป็น 90% ของหน้าจอ */
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    main .container {
+        padding: 0 10px; /* เพิ่ม Padding ด้านข้าง */
+    }
+
+    .btn-select {
+        width: 100%; /* ใช้ความกว้างเต็มหน้าจอ */
+        padding: 0 1.5rem;
+    }
+
+    .btn-select .btn {
+        margin: 5px 0; /* เพิ่มระยะห่างระหว่างปุ่ม */
+    }
+
+    main .container p {
+        width: 90%; /* ลดความกว้างของข้อความ */
+        font-size: 10px; /* ลดขนาดฟอนต์ */
+    }
+
+    .upload_lottery,
+    .input_text {
+        width: 90%; /* ลดความกว้างลง */
+        height: 100%; /* ปรับความสูงให้เหมาะสม */
+        padding: 20px; /* เพิ่ม Padding */
+    }
+
+    .upload_lottery form label {
+        font-size: 16px; /* ลดขนาดฟอนต์ */
+        padding: 10px 30px; /* ลด Padding */
+    }
+
+    .input_text {
+        display: flex; /* ใช้ Flexbox */
+        justify-content: center; /* จัดให้อยู่ตรงกลางแนวนอน */
+        align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    }
+    
+    .input_text form {
+        display: flex; /* ใช้ Flexbox สำหรับฟอร์ม */
+        flex-direction: column; /* จัดเรียงเนื้อหาในแนวตั้ง */
+        align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+        width: 100%; /* ความกว้างของฟอร์ม */
+    }
+    
+    .input_text form input,
+    .input_text form button {
+        width: 90%; /* ความกว้าง 90% ของฟอร์ม */
+        margin-bottom: 10px; /* เพิ่มระยะห่างระหว่างองค์ประกอบ */
+        padding: 10px; /* เพิ่ม Padding */
+        border-radius: 20px; /* มุมโค้ง */
+        outline: none; /* ลบเส้นขอบเมื่อโฟกัส */
+        font-family: 'Noto Sans Thai', sans-serif; /* ใช้ฟอนต์ */
+    }
+    
+    .input_text form button {
+        background-color: #3140b6; /* สีพื้นหลังปุ่ม */
+        color: white; /* สีข้อความ */
+        cursor: pointer;
+    }
+    
+
+    footer .container {
+        display: flex;
+        width: 100%; /* ลดความกว้างของ Footer */
+        height: 100%; /* ปรับความสูงให้เหมาะสม */
+        align-items: end;
+    }
+}
+
+@media (min-width: 810px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 810px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-box {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* ปรับความสูงให้เต็มหน้าจอ */
+        width: 100%;
+    }
+
+    header .header {
+        width: 500px;
+    }
+
+    .input_text form input {
+        padding-left: 20px;
+    }
+}
+
+
