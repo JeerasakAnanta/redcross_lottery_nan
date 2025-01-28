@@ -86,7 +86,7 @@ fileInput.addEventListener('change', async (event) => {
     uploadLabel.style.cursor = 'not-allowed';
 
     try {
-        const response = await fetch('http://10.50.50.32:3000/api/upload', {
+        const response = await fetch('http://localhost:3000/api_recross_ocr/upload', {
             method: 'POST',
             body: formData,
         });
@@ -125,7 +125,7 @@ manualInputForm.addEventListener('submit', async (event) => {
     manualSubmitButton.disabled = true;
 
     try {
-        const response = await fetch('http://10.50.50.32:3000/api/check_reward', {
+        const response = await fetch('http://localhost:3000/api_recross_ocr/check_reward', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
