@@ -64,24 +64,24 @@ services:
     networks:
       - redcorss-network
     
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:11.4.0-ubuntu
-    restart: always
-    ports:
-      - '3003:3000'
-    networks:
-      - redcorss-network
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:v3.1.0
-    restart: always
-    ports:
-      - '9090:9090'
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - redcorss-network
+  # grafana:
+  #   container_name: grafana
+  #   image: grafana/grafana:11.4.0-ubuntu
+  #   restart: always
+  #   ports:
+  #     - '3003:3000'
+  #   networks:
+  #     - redcorss-network
+  # prometheus:
+  #   container_name: prometheus
+  #   image: prom/prometheus:v3.1.0
+  #   restart: always
+  #   ports:
+  #     - '9090:9090'
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   networks:
+  #     - redcorss-network
 
 networks:
   redcorss-network:
