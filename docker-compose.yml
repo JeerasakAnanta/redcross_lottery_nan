@@ -63,26 +63,20 @@ services:
       - "3004:80"
     networks:
       - redcorss-network
-    
-  # grafana:
-  #   container_name: grafana
-  #   image: grafana/grafana:11.4.0-ubuntu
-  #   restart: always
-  #   ports:
-  #     - '3003:3000'
-  #   networks:
-  #     - redcorss-network
-  # prometheus:
-  #   container_name: prometheus
-  #   image: prom/prometheus:v3.1.0
-  #   restart: always
-  #   ports:
-  #     - '9090:9090'
-  #   volumes:
-  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
-  #   networks:
-  #     - redcorss-network
-
+   
+  uptime-kuma:
+    container_name: uptime_kuma
+    image: louislam/uptime-kuma:1.23.16
+    restart: always
+    ports:
+      - "3001:3001" 
+    volumes:
+      - ./uptime-kuma-data:/app/data
+    environment:
+      - ADMIN_USERNAME=${UPTIME_USERNAME}    
+      - ADMIN_PASSWORD=${UPTIME_PASSWORD}   
+    networks:
+      -   redcorss-network
 networks:
   redcorss-network:
     driver: bridge
