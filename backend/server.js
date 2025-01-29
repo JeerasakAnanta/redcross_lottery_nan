@@ -14,9 +14,9 @@ const lotteriesRoute = require('./routes/lotteries_route')
 const authenRoute = require('./routes/authen_route')
 const rewardRoute = require('./routes/reward_route')
 
-app.use('/api', lotteriesRoute)
-app.use('/api', authenRoute)
-app.use('/api', rewardRoute)
+app.use('/api_recross_ocr', lotteriesRoute)
+app.use('/api_recross_ocr', authenRoute)
+app.use('/api_recross_ocr', rewardRoute)
 
 
 sequelize.authenticate()
