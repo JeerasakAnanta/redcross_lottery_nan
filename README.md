@@ -6,9 +6,9 @@
 - ได้มีการพัฒนาโดยใช้ภาษา PHP และ Javascript 
 - ใช้เทคโนโลยีของ Container (Docker) ในการสร้างฐานข้อมูล และ เว็บไซต์เพื่อให้ง่ายต่อการใช้งาน และ การพัฒนา 
 - ได้พัฒนาต่อ ส่วนของ OCR (Optical Character Recognition) ที่ได้พัฒนามาก่อนหน้านี้ เเล้ว
-- พัฒนาโดยนักศึกษา สาขาวิทยาการคอมพิวเตอร์ มหาวิทยาลัย ราชมงคลธล้านนา น่าน 
+- พัฒนาโดยนักศึกษา สาขาวิทยาการคอมพิวเตอร์ มหาวิทยาลัย ราชมงคลล้านนา น่าน 
 ## ตัวอย่างในการใช้งานเว็บ
-- การค้นหาด้วยตัวเลข
+- การค้นหาด้วยตัวเลข ผ่านหน้าเว็บ 
 ![หน้าเว็บ](./documents/doc.gif)
 
 - การค้นหาโดย OCR
@@ -24,6 +24,81 @@ graph LR
     crud --> MYSQL
     
 ```
+# การสร้าง environment สำหรับ Depoly
+- ติดตั้งโปรแกรม Docker และ Docker Compose ในเครื่อง 
+```bash 
+sudo apt-get update 
+sudo apt-get install docker.io -y 
+sudo apt-get install docker-compose -y 
+```
+- ตรวจสอบการติดตั้ง Docker และ Docker Compose
+```bash
+docker --version
+docker-compose --version
+```
+- ติดตั้งโปรแกรม webserver ngingx ในเครื่อง
+```bash
+sudo apt-get install nginx
+```
+- เป็นการใช้งาน nginx ในการทดสอบการใช้งานเว็บไซต์
+```bash
+sudo systemctl start nginx
+sudo systemctl enable nginx
+```
+- ทดสอบ ngnix  
+```bash  
+sudo systemcmt status nginx 
+```
+- ติดตั้ง Certbot
+```bash
+sudo apt install certbot python3-certbot-nginx
+```
+- ขอใบรับรอง SSL ใช้งาน Certbot เพื่อขอใบรับรอง SSL สำหรับโดเมน `You-Domain`:
+```bash 
+sudo certbot --nginx -d You-Domain
+```
+- ตั้งค่า NGINX สำหรับ Node.js 
+```bash
+sudo vim /etc/nginx/sites-available/you-domain
+```
+- config ไฟล์ nginx ให้เป็นไฟล์ default ใน /etc/nginx/sites-available/you-domain
+```bash
+server {
+    listen 80;
+    server_name You-Domain;
+
+    # Redirect all traffic to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name You-Domain;
+
+    ssl_certificate /etc/letsencrypt/live/You-Domain/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/You-Domain/privkey.pem;
+
+    location /api_recross_ocr/ {
+        proxy_pass http://localhost:3000/api_recross_ocr/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+- เปิดใช้งานการตั้งค่าของ NGINX
+```bash 
+sudo ln -s /etc/nginx/sites-available/You-Domain /etc/nginx/sites-enabled/
+```
+-  ทดสอบการตั้งค่า NGINX
+```bash 
+sudo nginx -t
+```
+- รีสตาร์ท NGINX
+```bash 
+sudo systemctl restart nginx
+```
 # การพัฒนา Deployment 
 - clone โปรเจคจาก github 
 ```bash
@@ -37,14 +112,12 @@ cp .env.example .env
 - แก้ไขไฟล์ .env ให้ตรงกับของเราเอง
 ```bash
 # API keys
-API_KEY=your_api_key
 
 # Other configuration
-DEBUG=true
 SECRET_KEY=your_secret_key
 
 # Node configuration
-NODE_PORT=3030
+NODE_PORT=3000
 
 # MySQL configuration
 MYSQL_PORT=3306
