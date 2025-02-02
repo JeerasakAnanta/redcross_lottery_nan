@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const NODE_ENDPOINT_SHOW = import.meta.env.VITE_NODE_ENDPOINT_SHOW;
+const NODE_ENDPOINT_INSERT = import.meta.env.VITE_NODE_ENDPOINT_INSERT;
+const NODE_ENDPOINT_DELETE = import.meta.env.VITE_NODE_ENDPOINT_DELETE;
+
 interface LotteryData {
   id: number;
   lottery_number: number;
@@ -17,7 +21,7 @@ const InsertLotteryForm: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/lotteries")
+      .get(`${NODE_ENDPOINT_SHOW}`)
       .then((response) => {
         setLotteryData(response.data);
       })
@@ -33,7 +37,7 @@ const InsertLotteryForm: React.FC = () => {
       reward_number: rewardNumber,
     };
     axios
-      .post("http://localhost:3000/api/lotterie", postData, {
+      .post(`${NODE_ENDPOINT_INSERT}`, postData, {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {
@@ -50,7 +54,7 @@ const InsertLotteryForm: React.FC = () => {
   const confirmDelete = (id: number) => {
     if (window.confirm("‼️ คุณต้องการลบ จริงๆใช้ไหมครับ ‼️")) {
       axios
-        .delete(`http://localhost:3000/api/lotterie/${id}`)
+        .delete(`${NODE_ENDPOINT_DELETE}/${id}`)
         .then(() => {
           setLotteryData((prev) => prev.filter((item) => item.id !== id));
           alert("ลบสำเร็จ!");
