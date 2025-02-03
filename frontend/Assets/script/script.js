@@ -82,11 +82,11 @@ fileInput.addEventListener('change', async (event) => {
     formData.append('image', file);
 
     // เปลี่ยนข้อความ Label เป็น "กำลังโหลด..."
-    uploadLabel.textContent = 'กำลังโหลด...';
+    uploadLabel.textContent = 'โปรดรอสักครู่...';
     uploadLabel.style.cursor = 'not-allowed';
 
     try {
-        const response = await fetch('http://localhost:3000/api_recross_ocr/upload', {
+        const response = await fetch('https://comsci.app/upload', {
             method: 'POST',
             body: formData,
         });
@@ -120,12 +120,11 @@ manualInputForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    // เปลี่ยนข้อความปุ่มเป็น "กำลังโหลด..."
-    manualSubmitButton.textContent = 'กำลังโหลด...';
+    manualSubmitButton.textContent = 'โปรดรอสักครู่...';
     manualSubmitButton.disabled = true;
 
     try {
-        const response = await fetch('http://localhost:3000/api_recross_ocr/check_reward', {
+        const response = await fetch('https://comsci.app/check_reward', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
