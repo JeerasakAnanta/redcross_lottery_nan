@@ -10,18 +10,18 @@ services:
       - ./frontend/:/var/www/html/
     networks:
       - redcorss-network
-  back_endapi:
-    container_name: back_endapi
-    image: "backend_api:0.1.0"
-    restart: always
-    ports:
-      - "3000:3030"
-    depends_on:
-      - db
-    networks:
-      - redcorss-network
-    env_file:
-      - .env
+  # back_endapi:
+  #   container_name: back_endapi
+  #   image: "backend_api:0.1.0"
+  #   restart: always
+  #   ports:
+  #     - "3000:3030"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - redcorss-network
+  #   env_file:
+  #     - .env
   db:
     container_name: mysql_db
     image: mysql:9.2.0
