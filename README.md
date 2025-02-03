@@ -216,3 +216,51 @@ graph TD
 ## พัฒนาโปรเจคโดย 
 - [Jeerasak Ananta SS4](https://github.com/JeerasakAnanta) 🍻
 - [Prachya](https://github.com/pabigmz)🚀
+
+## Mockup Database 
+```sql
+INSERT INTO lotterys (lottery_number, reward_number, createdAt, updatedAt) VALUES
+('132137', 1, NOW(), NOW()),
+('035158', 2, NOW(), NOW()), 
+('129715', 3, NOW(), NOW()),
+('018415', 3, NOW(), NOW()), 
+('179006', 3, NOW(), NOW()),
+('089491', 3, NOW(), NOW()), 
+('155484', 3, NOW(), NOW()),
+('065089', 4, NOW(), NOW()), 
+('092932', 4, NOW(), NOW()), 
+('090780', 4, NOW(), NOW()), 
+('044492', 4, NOW(), NOW()), 
+('059714', 4, NOW(), NOW()), 
+('085243', 4, NOW(), NOW()), 
+('115367', 4, NOW(), NOW()),
+('101048', 4, NOW(), NOW()),
+('020822', 4, NOW(), NOW()), 
+('072170', 4, NOW(), NOW()), 
+('068937', 5, NOW(), NOW()), 
+('104411', 5, NOW(), NOW()),
+('010620', 5, NOW(), NOW()), 
+('159264', 5, NOW(), NOW()),
+('046552', 5, NOW(), NOW()), 
+('006447', 5, NOW(), NOW()), 
+('052871', 5, NOW(), NOW()), 
+('104119', 5, NOW(), NOW()),
+('105607', 5, NOW(), NOW()),
+('032510', 5, NOW(), NOW()), 
+('067427', 6, NOW(), NOW()), 
+('075772', 6, NOW(), NOW()), 
+('086856', 6, NOW(), NOW()), 
+('163530', 6, NOW(), NOW()),
+('067874', 6, NOW(), NOW()), 
+('161096', 6, NOW(), NOW()),
+('118997', 6, NOW(), NOW()),
+('170573', 6, NOW(), NOW()),
+('060817', 6, NOW(), NOW()), 
+('040482', 6, NOW(), NOW()), 
+('086004', 6, NOW(), NOW()), 
+('198791', 6, NOW(), NOW()),
+('071681', 6, NOW(), NOW()), 
+('114796', 6, NOW(), NOW()),
+('161044', 6, NOW(), NOW()),
+('000186', 7, NOW(), NOW()); 
+```
