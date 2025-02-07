@@ -9,3 +9,11 @@ docker-compose*
 
 # environment variables file  
 .env 
+
+# readme.md
+README.md
+
+
+google-api-credentials.json
+
+
