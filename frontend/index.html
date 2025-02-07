@@ -24,7 +24,10 @@
                 </div>
             </nav>
         </header>
-        <main>
+        <div id="boxShow">
+            <h1>ระบบจะเปิดให้ใช้งานภายในวันที่ 17 กุมภาพันธ์ 2568</h1>
+        </div>
+        <main id="specialContent" class="hidden">
             <div class="container">
                 <div class="btn-select">
                     <button class="btn btn-primary" id="upload">อัปโหลดภาพสลาก</button>
@@ -90,6 +93,27 @@
 
 
     <script src="./Assets/script/script.js"></script>
+    <script>
+        function checkDateTime() {
+            // กำหนดโซนเวลาไทย
+            const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
+            const currentDate = new Date(now);
+
+            // กำหนดวันที่และเวลาที่ต้องการให้แสดง (17 กุมภาพันธ์ 2568 เวลา 12:00 น.)
+            const targetDate = new Date("2025-02-17T12:00:00+07:00"); // เวลาไทย (GMT+7)
+
+            if (currentDate >= targetDate) {
+                document.getElementById("specialContent").classList.remove("hidden");
+                document.getElementById("boxShow").style.display = "none";
+            }
+        }
+
+        // ตรวจสอบทุกวินาที
+        setInterval(checkDateTime, 1000);
+
+        // เรียกฟังก์ชันตอนโหลดหน้า
+        checkDateTime();
+    </script>
 </body>
 
 </html>
