@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const NODE_ENDPOINT_SHOW = import.meta.env.VITE_NODE_ENDPOINT_SHOW;
-const NODE_ENDPOINT_DELETE = import.meta.env.VITE_NODE_ENDPOINT_DELETE;
+const NODE_ENDPOINT_SHOW = import.meta.env.APP_NODE_ENDPOINT_SHOW;
+const NODE_ENDPOINT_DELETE = import.meta.env.APP_NODE_ENDPOINT_DELETE;
+const NODE_ENDPOINT_INSERT = import.meta.env.APP_NODE_ENDPOINT_INSERT;
 
 
 interface LotteryItem {
