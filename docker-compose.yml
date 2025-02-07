@@ -1,27 +1,28 @@
 services:
-
-  web_frontend:
-    container_name: web_frontend
-    image: "frontend:0.1.0"
+  nginx:
+    container_name: nginx
+    image: nginx:latest
     restart: always
     ports:
-      - "8085:80"
+      - "80:80"
     volumes:
-      - ./frontend/:/var/www/html/
+      - ./frontend:/usr/share/nginx/html/redcross-ocr
     networks:
       - redcorss-network
-  # back_endapi:
-  #   container_name: back_endapi
-  #   image: "backend_api:0.1.0"
-  #   restart: always
-  #   ports:
-  #     - "3000:3030"
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - redcorss-network
-  #   env_file:
-  #     - .env
+
+  backend_api:
+    container_name: backend_api
+    image: backend_api:0.1.0
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - redcorss-network
+
   db:
     container_name: mysql_db
     image: mysql:9.2.0
@@ -37,12 +38,7 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - redcorss-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
-      interval: 5s
-      timeout: 10s
-      retries: 5
-      
+
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:5.2.2
@@ -51,32 +47,21 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - '8080:80'
+      - "8080:80"
     networks:
       - redcorss-network
 
   admin_dashboard:
     container_name: admin_dashboard
-    image: "admin_dashboard:0.1.0"
+    image: admin_dashboard:0.1.0
     restart: always
     ports:
-      - "3004:80"
+      - "8085:80"
+    env_file:
+      - .env
     networks:
       - redcorss-network
-   
-  uptime-kuma:
-    container_name: uptime_kuma
-    image: louislam/uptime-kuma:1.23.16
-    restart: always
-    ports:
-      - "3001:3001" 
-    volumes:
-      - ./uptime-kuma-data:/app/data
-    environment:
-      - ADMIN_USERNAME=${UPTIME_USERNAME}    
-      - ADMIN_PASSWORD=${UPTIME_PASSWORD}   
-    networks:
-      -   redcorss-network
+
 networks:
   redcorss-network:
     driver: bridge
