@@ -1,5 +1,10 @@
 #!/bin/bash 
 
+# copy the .env files to the docker container 
+cp -r .env ./backend/.env 
+
+cp -r .env ./admin/.env 
+
 # Build the docker images 
 docker-compose down 
 
