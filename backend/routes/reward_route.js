@@ -1,10 +1,11 @@
 const controller = require("../controllers/reward_controller");
 const router = require("express").Router();
-const JWTMiddleware = require("../middlewares/jwt");
+// const JWTMiddleware = require("../middlewares/authMiddleware");
 const multer = require("multer");
 
 const upload = multer();
-const jwtMiddleware = JWTMiddleware(process.env.JWT_SECRET_KEY);
+
+// const jwtMiddleware = JWTMiddleware(process.env.JWT_SECRET);
 
 /**
  * @swagger
