@@ -19,12 +19,14 @@ const Showlottery: React.FC = () => {
     // Fetch data from the API
     axios
       .get(`${NODE_ENDPOINT_SHOW}`)
-      .then((response) => {
-        setLotteryData(response.data);
+      .then(({ data }) => {
+        setLotteryData(data);
       })
       .catch((error) => {
         console.error("There was an error fetching the lottery data!", error);
       });
+
+    console.log("first", lotteryData.length);
   }, []);
 
   // Handle sorting
@@ -77,51 +79,54 @@ const Showlottery: React.FC = () => {
           เพิ่มหมายเลข
         </a>
       </div>
-
       {/* Display Data Table */}
       <div className="container mx-auto">
-        <div className="text-center mb-4">
-          <h4 className="text-xl font-semibold text-gray-700">ข้อมูล</h4>
-        </div>
-        <table className="table-auto rounded-lg w-full border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th
-                className="px-4 py-2 border cursor-pointer"
-                onClick={() => handleSort("reward_number")}
-              >
-                🏆 รางวัลที่{" "}
-                {sortField === "reward_number" &&
-                  (sortOrder === "asc" ? "🔼" : "🔽")}
-              </th>
-              <th
-                className="px-4 py-2 border cursor-pointer"
-                onClick={() => handleSort("lottery_number")}
-              >
-                🔢 หมายเลข{" "}
-                {sortField === "lottery_number" &&
-                  (sortOrder === "asc" ? "🔼" : "🔽")}
-              </th>
-              <th className="px-4 py-2 border">❌ ลบ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lotteryData.map((item) => (
-              <tr key={item.id} className="text-center">
-                <td className="px-4 py-2 border">{item.reward_number}</td>
-                <td className="px-4 py-2 border">{item.lottery_number}</td>
-                <td className="px-4 py-2 border">
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded shadow"
-                    onClick={() => confirmDelete(item.id)}
+        {lotteryData.length !== 0 && (
+          <>
+            <div className="text-center mb-4">
+              <h4 className="text-xl font-semibold text-gray-700">ข้อมูล</h4>
+            </div>
+            <table className="table-auto rounded-lg w-full border border-gray-300">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th
+                    className="px-4 py-2 border cursor-pointer"
+                    onClick={() => handleSort("reward_number")}
                   >
-                    ลบ
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    🏆 รางวัลที่{" "}
+                    {sortField === "reward_number" &&
+                      (sortOrder === "asc" ? "🔼" : "🔽")}
+                  </th>
+                  <th
+                    className="px-4 py-2 border cursor-pointer"
+                    onClick={() => handleSort("lottery_number")}
+                  >
+                    🔢 หมายเลข{" "}
+                    {sortField === "lottery_number" &&
+                      (sortOrder === "asc" ? "🔼" : "🔽")}
+                  </th>
+                  <th className="px-4 py-2 border">❌ ลบ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {lotteryData.map((item) => (
+                  <tr key={item.id} className="text-center">
+                    <td className="px-4 py-2 border">{item.reward_number}</td>
+                    <td className="px-4 py-2 border">{item.lottery_number}</td>
+                    <td className="px-4 py-2 border">
+                      <button
+                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded shadow"
+                        onClick={() => confirmDelete(item.id)}
+                      >
+                        ลบ
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       </div>
     </div>
   );
