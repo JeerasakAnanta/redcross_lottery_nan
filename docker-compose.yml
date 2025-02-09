@@ -6,6 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
+      - ./conf.d:/etc/nginx/conf.d
       - ./frontend:/usr/share/nginx/html/redcross-ocr
     networks:
       - redcorss-network
