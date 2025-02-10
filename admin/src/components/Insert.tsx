@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { DivideIcon } from "@heroicons/react/24/outline";
 
 const NODE_ENDPOINT_SHOW = import.meta.env.APP_NODE_ENDPOINT_SHOW;
 const NODE_ENDPOINT_INSERT = import.meta.env.APP_NODE_ENDPOINT_INSERT;
@@ -23,17 +24,22 @@ const InsertLotteryForm: React.FC = () => {
     axios
       .get(`${NODE_ENDPOINT_SHOW}`)
       .then((response) => {
-        setLotteryData(response.data);
+        if (response.data.length !== 0) {
+          setLotteryData(response.data);
+        } else {
+          setLotteryData([]); // Set to empty array if no data
+        }
       })
       .catch((error) => {
         console.error("Error fetching lottery data:", error);
+        alert("Failed to fetch lottery data. Please try again later.");
       });
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const postData = {
-      lottery_number: lotteryNumber,
+      lottery_number: Number(lotteryNumber), // Convert to number
       reward_number: rewardNumber,
     };
     axios
@@ -44,13 +50,16 @@ const InsertLotteryForm: React.FC = () => {
         alert("เพิ่มหมายเลขสำเร็จ!");
         setLotteryNumber("");
         setRewardNumber(1);
-        window.location.reload(); // Reload the page after successful addition
+        // Refetch data instead of reloading the page
+        axios.get(`${NODE_ENDPOINT_SHOW}`).then((response) => {
+          setLotteryData(response.data);
+        });
       })
       .catch((error) => {
         console.error("Error inserting lottery:", error);
+        alert("Failed to insert lottery. Please try again.");
       });
   };
-
   const confirmDelete = (id: number) => {
     if (window.confirm("‼️ คุณต้องการลบ จริงๆใช้ไหมครับ ‼️")) {
       axios
@@ -167,20 +176,28 @@ const InsertLotteryForm: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {lotteryData.map((item) => (
-              <tr key={item.id} className="text-center">
-                <td className="px-4 py-2 border">{item.lottery_number}</td>
-                <td className="px-4 py-2 border">{item.reward_number}</td>
-                <td className="px-4 py-2 border">
-                  <button
-                    onClick={() => confirmDelete(item.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
-                  >
-                    ลบ
-                  </button>
+            {lotteryData.length > 0 ? (
+              lotteryData.map((item) => (
+                <tr key={item.id} className="text-center">
+                  <td className="px-4 py-2 border">{item.lottery_number}</td>
+                  <td className="px-4 py-2 border">{item.reward_number}</td>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => confirmDelete(item.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
+                    >
+                      ลบ
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="px-4 py-2 border text-center">
+                  ยังไม่พบข้อมูล
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

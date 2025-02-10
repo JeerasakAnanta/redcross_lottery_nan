@@ -20,13 +20,12 @@ const Showlottery: React.FC = () => {
     axios
       .get(`${NODE_ENDPOINT_SHOW}`)
       .then(({ data }) => {
-        setLotteryData(data);
+        // setLotteryData(data);
       })
       .catch((error) => {
+        console.log("con't fetch");
         console.error("There was an error fetching the lottery data!", error);
       });
-
-    console.log("first", lotteryData.length);
   }, []);
 
   // Handle sorting
@@ -79,54 +78,56 @@ const Showlottery: React.FC = () => {
           เพิ่มหมายเลข
         </a>
       </div>
-      {/* Display Data Table */}
-      <div className="container mx-auto">
-        {lotteryData.length !== 0 && (
-          <>
-            <div className="text-center mb-4">
-              <h4 className="text-xl font-semibold text-gray-700">ข้อมูล</h4>
-            </div>
-            <table className="table-auto rounded-lg w-full border border-gray-300">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th
-                    className="px-4 py-2 border cursor-pointer"
-                    onClick={() => handleSort("reward_number")}
-                  >
-                    🏆 รางวัลที่{" "}
-                    {sortField === "reward_number" &&
-                      (sortOrder === "asc" ? "🔼" : "🔽")}
-                  </th>
-                  <th
-                    className="px-4 py-2 border cursor-pointer"
-                    onClick={() => handleSort("lottery_number")}
-                  >
-                    🔢 หมายเลข{" "}
-                    {sortField === "lottery_number" &&
-                      (sortOrder === "asc" ? "🔼" : "🔽")}
-                  </th>
-                  <th className="px-4 py-2 border">❌ ลบ</th>
+      {/* Table */}
+      <div className="mt-10">
+        <h4 className="text-xl font-bold text-center mb-4">ข้อมูล</h4>
+        <table className="w-full border border-gray-300">
+          <thead className="bg-gray-200">
+            <tr>
+              <th
+                className="px-4 py-2 border cursor-pointer"
+                onClick={() => handleSort("lottery_number")}
+              >
+                🔢 หมายเลข{" "}
+                {sortField === "lottery_number" &&
+                  (sortOrder === "asc" ? "🔼" : "🔽")}
+              </th>
+              <th
+                className="px-4 py-2 border cursor-pointer"
+                onClick={() => handleSort("reward_number")}
+              >
+                🏆 รางวัล{" "}
+                {sortField === "reward_number" &&
+                  (sortOrder === "asc" ? "🔼" : "🔽")}
+              </th>
+              <th className="px-4 py-2 border">❌ ลบ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lotteryData.length > 0 ? (
+              lotteryData.map((item) => (
+                <tr key={item.id} className="text-center">
+                  <td className="px-4 py-2 border">{item.lottery_number}</td>
+                  <td className="px-4 py-2 border">{item.reward_number}</td>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => confirmDelete(item.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
+                    >
+                      ลบ
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {lotteryData.map((item) => (
-                  <tr key={item.id} className="text-center">
-                    <td className="px-4 py-2 border">{item.reward_number}</td>
-                    <td className="px-4 py-2 border">{item.lottery_number}</td>
-                    <td className="px-4 py-2 border">
-                      <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded shadow"
-                        onClick={() => confirmDelete(item.id)}
-                      >
-                        ลบ
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="px-4 py-2 border text-center">
+                  ยังไม่พบข้อมูล
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
