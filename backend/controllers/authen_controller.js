@@ -1,7 +1,7 @@
+require('dotenv').config();
 const db = require('../models/sequelize')
 const Joi = require('joi');
 const { generateToken, comparePassword, setTimeExpired, hashPassword } = require('../utils/authen')
-require('dotenv').config();
 const User = db.authen
 
 const register = async (req, res) => {
