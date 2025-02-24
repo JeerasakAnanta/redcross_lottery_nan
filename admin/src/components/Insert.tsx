@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DivideIcon } from "@heroicons/react/24/outline";
 
 const NODE_ENDPOINT_SHOW = import.meta.env.APP_NODE_ENDPOINT_SHOW;
 const NODE_ENDPOINT_INSERT = import.meta.env.APP_NODE_ENDPOINT_INSERT;
@@ -12,7 +11,7 @@ interface LotteryData {
   reward_number: number;
 }
 
-const InsertLotteryForm: React.FC = () => {
+const InsertLotteryForm: React.FC = () => { 
   const [lotteryNumber, setLotteryNumber] = useState<string>("");
   const [rewardNumber, setRewardNumber] = useState<number>(1);
   const [lotteryData, setLotteryData] = useState<LotteryData[]>([]);
@@ -89,7 +88,6 @@ const InsertLotteryForm: React.FC = () => {
 
     setLotteryData(sortedData);
   };
-
   return (
     <div className="container mx-auto p-6">
       {/* Title */}
