@@ -18,9 +18,10 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 const lotteriesRoute = require("./routes/lotteries_route");
 // const authenRoute = require("./routes/authen_route");
 const rewardRoute = require("./routes/reward_route");
+const apiRoute = require("./routes/api_route");
 
 // Route setup
-app.use("/", [lotteriesRoute, rewardRoute]);
+app.use("/", [lotteriesRoute, rewardRoute, apiRoute]);
 
 app.get("/", (req, res) => {
   res.json({ message: `Hello from the server running on ${os.hostname()}` });
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Connected to MySQL database.");
+    console.log("Connected to PostgreSQL database.");
 
     // Start the server after successful database connection
     startServer();
@@ -52,7 +53,7 @@ const options = {
 
 // Function to start the server
 const startServer = () => {
-  const port = process.env.NODE_PORT || 3000;
+  const port = process.env.PORT || 3001;
   const server =
     process.env.SSL_KEY_PATH && process.env.SSL_CERT_PATH
       ? https.createServer(options, app)
