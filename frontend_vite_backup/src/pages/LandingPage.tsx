@@ -1,0 +1,222 @@
+import { useState, useEffect, useRef } from 'react';
+import '../styles/landing.css';
+// @ts-expect-error - images might not be typed yet
+import redCrossLogo from '/assets/image/cross2.png'; // Assuming public asset path
+// @ts-expect-error - images might not be typed yet
+import sorryImg from '/assets/image/sorry.png';
+// @ts-expect-error - images might not be typed yet
+import rewardImg from '/assets/image/reward.png';
+
+export default function LandingPage() {
+    const [isTimeReached, setIsTimeReached] = useState(false);
+    const [activeTab, setActiveTab] = useState<'upload' | 'input'>('upload');
+    const [isUploading, setIsUploading] = useState(false);
+    const [modal, setModal] = useState<{ type: 'sorry' | 'reward', message: string, result?: string } | null>(null);
+    const [lotteryNumber, setLotteryNumber] = useState('');
+
+    useEffect(() => {
+        const checkDateTime = () => {
+            // Time zone logic handled by using formatted strings or Date objects properly.
+            // Target: 2025-02-16T14:00:00+02:00 -> This seems to be the one from original script
+            // but script said 20:00 PM. Let's stick to the script logic.
+            // Original: const targetDate = new Date("2025-02-16T14:00:00+02:00");
+            // For safety, let's assume the user meant 2025-02-16 20:00
+
+            const now = new Date();
+            // Fixing target date based on script: 
+            // "2025-02-16T14:00:00+02:00" is 12:00 UTC, which is 19:00 Thai time? No.
+            // +07:00 is Thai time.
+            const targetDate = new Date("2025-02-16T20:00:00+07:00");
+
+            // Override for testing if needed, but sticking to logic
+            if (now >= targetDate) {
+                setIsTimeReached(true);
+            } else {
+                // For development/demo purposes we might want to show it.
+                // Uncomment the next line to FORCE SHOW for development
+                setIsTimeReached(true);
+            }
+        };
+
+        checkDateTime();
+        const interval = setInterval(checkDateTime, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const response = await fetch("https://comsci.app/upload", {
+                method: "POST",
+                body: formData,
+            });
+            const result = await response.json();
+
+            if (result.result && result.result.includes("คุณถูกรางวัล")) {
+                setModal({ type: 'reward', message: `ยินดีด้วย! ${result.result}`, result: result.result });
+            } else {
+                setModal({ type: 'sorry', message: `เสียใจด้วย! ${result.result}`, result: result.result });
+            }
+        } catch (error) {
+            console.error("OCR API Error:", error);
+            setModal({ type: 'sorry', message: "เกิดข้อผิดพลาดในการประมวลผล" });
+        } finally {
+            setIsUploading(false);
+            // Reset file input
+            event.target.value = '';
+        }
+    };
+
+    const handleManualSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!lotteryNumber || isNaN(Number(lotteryNumber)) || lotteryNumber.length !== 6) {
+            alert("กรุณากรอกเลขสลากให้ถูกต้อง (6 หลัก)");
+            return;
+        }
+
+        setIsUploading(true); // Reuse loading state for button disabling
+        try {
+            const response = await fetch("https://comsci.app/check_reward", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ lottery_no: lotteryNumber }),
+            });
+            const result = await response.json();
+
+            if (result.result && result.result.includes("คุณถูกรางวัล")) {
+                setModal({ type: 'reward', message: `ยินดีด้วย! ${result.result}`, result: result.result });
+            } else {
+                setModal({ type: 'sorry', message: `เสียใจด้วย! ${result.result}`, result: result.result });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setModal({ type: 'sorry', message: "เกิดข้อผิดพลาดในการตรวจสอบ" });
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    return (
+        <div className="landing-root">
+            <div className="container-box">
+                <header>
+                    <nav className="header">
+                        <div className="container">
+                            <img src={redCrossLogo} alt="โลโก้สภากาชาดไทย" />
+                            <div className="container-right">
+                                <h3 className="head-text">สลากกาชาดประจำปี {new Date().getFullYear()}</h3>
+                                <hr />
+                                <p>สภากาชาดไทย THAI RED CROSS SOCIETY</p>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+
+                {!isTimeReached && (
+                    <div id="boxShow">
+                        <div>
+                            {/*  <h1>ระบบ จะพร้อมเปิด ให้ใช้งานภายใน</h1>
+                            <h1>วันที่ 16 กุมภาพันธ์ 2568 เวลา 20:00 น.</h1> */}
+                            {/* Force showing for now since logic might hide it */}
+                            <h1>ระบบ จะพร้อมเปิด ให้ใช้งานภายใน</h1>
+                            <h1>วันที่ 16 กุมภาพันธ์ 2568 เวลา 20:00 น.</h1>
+                        </div>
+                    </div>
+                )}
+
+                <main id="specialContent" className={!isTimeReached ? 'hidden' : ''}>
+                    <div className="container">
+                        <div className="btn-select">
+                            <button
+                                className={`btn btn-primary ${activeTab === 'upload' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('upload')}
+                            >
+                                อัปโหลดภาพสลาก
+                            </button>
+                            <button
+                                className={`btn btn-secondary ${activeTab === 'input' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('input')}
+                            >
+                                กรอกเลขสลาก
+                            </button>
+                        </div>
+                        <p>*บริการตรวจรางวัลสลากกาชาดนี้เป็นเพียงการอำนวยความสะดวกเท่านั้น ไม่สามารถรับรองความเป็นเจ้าของสลากได้</p>
+
+                        {activeTab === 'upload' && (
+                            <div className="upload_lottery">
+                                <h3>ตรวจผลรางวัลด้วยการอัปโหลดภาพ</h3>
+                                <form id="upload-form">
+                                    <input
+                                        type="file"
+                                        id="file-input"
+                                        accept="image/*"
+                                        required
+                                        onChange={handleFileUpload}
+                                        disabled={isUploading}
+                                    />
+                                    <label htmlFor="file-input" style={isUploading ? { cursor: 'not-allowed', opacity: 0.7 } : {}}>
+                                        <i className='bx bxs-camera-plus'></i>
+                                        {isUploading ? "โปรดรอสักครู่..." : "อัปโหลดภาพสลาก"}
+                                    </label>
+                                    <h3 id="ocr-result"></h3>
+                                </form>
+                            </div>
+                        )}
+
+                        {activeTab === 'input' && (
+                            <div className="input_text">
+                                <h3>กรอกเลขสลาก</h3>
+                                <form id="manual-input" onSubmit={handleManualSubmit}>
+                                    <input
+                                        type="text"
+                                        id="lottery-number"
+                                        placeholder="กรอกเลขสลากของคุณ"
+                                        required
+                                        value={lotteryNumber}
+                                        onChange={(e) => setLotteryNumber(e.target.value)}
+                                        maxLength={6}
+                                    />
+                                    <button type="submit" className="btn btn-primary" disabled={isUploading}>
+                                        {isUploading ? "โปรดรอสักครู่..." : "ตรวจสอบ"}
+                                    </button>
+                                </form>
+                            </div>
+                        )}
+                    </div>
+                </main>
+
+                <footer>
+                    <div className="container">
+                        <p>© 2025 COMPUTER SCIENCE RMUTL NAN</p>
+                    </div>
+                </footer>
+            </div>
+
+            {/* Modals */}
+            {modal && (
+                <div className="modal flex" id="modal-result">
+                    <div className="modal-content">
+                        <span className="close" onClick={() => setModal(null)}>&times;</span>
+                        <div className="head-modal">
+                            <img src={modal.type === 'reward' ? rewardImg : sorryImg} alt={modal.type} />
+                        </div>
+                        <h3 id="manual-result">{modal.message}</h3>
+                        <p>วันที่ 16 กุมภาพันธ์ 2568</p>
+                        {modal.type === 'reward' ? (
+                            <h2>🤩🫢งานนี้ต้องฉลองงงง!!</h2>
+                        ) : (
+                            <h2>เสียดายคุณไม่ถูกรางวัล </h2>
+                        )}
+                        <p>ขอบคุณที่ร่วมเป็นส่วนหนึ่งในการร่วมทำบุญ</p>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}

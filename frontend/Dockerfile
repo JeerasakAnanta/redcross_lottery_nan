@@ -1,19 +1,31 @@
-# Use the official PHP image with Nginx
-FROM php:8.2-fpm
+# Stage 1: Build the Next.js application
+FROM node:18-alpine AS builder
 
-# Install necessary PHP extensions for MySQL
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
 
-RUN apt-get update && apt-get install -y nginx && apt-get upgrade -y
+COPY . .
+RUN npm run build
 
-# Copy the PHP application files into the container
-COPY . /var/www/html/
+# Stage 2: Production image
+FROM node:18-alpine AS runner
+WORKDIR /app
 
-# Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
+ENV NODE_ENV production
 
-# Expose port 80 for Nginx
-EXPOSE 80
+# Don't run as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Start PHP-FPM and Nginx
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "server.js"]
