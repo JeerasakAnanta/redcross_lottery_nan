@@ -134,3 +134,8 @@ google-api-credentials.json
 
 #uptime kum
 /uptime-kuma-data
+
+#db_data  docker volume 
+db_data/*
+
+*__pycache__
