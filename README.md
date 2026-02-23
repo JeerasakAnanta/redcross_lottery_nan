@@ -222,6 +222,21 @@ graph TD
 - [Prachya](https://github.com/pabigmz)🚀
 
 ## Mockup Database 
+- create table  
+
+```sql
+-- 1. Create the table structure
+CREATE TABLE IF NOT EXISTS `lotteries` (
+  `id` INT NOT NULL,
+  `lottery_number` INT NOT NULL,
+  `reward_number` INT NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedAt` DATETIME NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+-insert data to table  lotteries
 ```sql
 
 INSERT INTO `lotteries` (`id`, `lottery_number`, `reward_number`, `createdAt`, `updatedAt`) VALUES
