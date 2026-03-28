@@ -59,18 +59,21 @@ migrate-down:
 migrate-status:
     uv run alembic current
 
-# Build Docker image
+# Build Docker image using .env version
 docker-build:
-    docker build -t redcross-lottery-api .
+    docker build --build-arg BACKEND_VERSION=${BACKEND_VERSION:-1.0.0} -t redcross-lottery-api:${BACKEND_VERSION:-1.0.0} .
 
-# Run with docker-compose
+# Run Docker container
+docker-run:
+    docker run -p ${NODE_PORT:-8000}:${NODE_PORT:-8000} --env-file .env redcross-lottery-api:${BACKEND_VERSION:-1.0.0}
+
+# Build and run with docker-compose using .env
 docker-up:
-    docker-compose up --build
+    docker-compose --env-file .env up --build -d
 
-# Stop docker-compose
+# Stop docker-compose services
 docker-down:
-    docker-compose down
-
+    docker-compose --env-file .env down
 # Clean cache and build artifacts
 clean:
     find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
