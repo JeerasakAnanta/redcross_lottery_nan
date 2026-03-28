@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Settings(BaseSettings):
     # Database
     MYSQL_DATABASE: str = os.getenv("MYSQL_DATABASE", "")
@@ -21,7 +22,7 @@ class Settings(BaseSettings):
     # SSL
     SSL_KEY_PATH: Optional[str] = None
     SSL_CERT_PATH: Optional[str] = None
-    
+
     # JWT
     JWT_SECRET: str = ""
     JWT_EXPIRE: str = "7d"
@@ -32,5 +33,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 settings = Settings()

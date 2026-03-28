@@ -36,9 +36,11 @@ app.include_router(user_router.router, tags=["users"])
 app.include_router(lottery_router.router, tags=["lotteries"])
 app.include_router(reward_router.router, tags=["rewards"])
 
+
 @app.get("/")
 async def root():
     return {"message": f"Hello from the server running on {socket.gethostname()}"}
+
 
 @app.get("/health")
 async def health_check():

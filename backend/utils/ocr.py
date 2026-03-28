@@ -21,6 +21,7 @@ class OCRProcessor:
         """Initialize EasyOCR reader"""
         try:
             import easyocr
+
             self.easyocr_reader = easyocr.Reader(self.languages)
             self._initialized = True
             print(f"EasyOCR initialized with languages: {self.languages}")
@@ -89,9 +90,10 @@ def get_ocr_processor() -> OCRProcessor:
     global _ocr_processor
     if _ocr_processor is None:
         from core.config import settings
+
         _ocr_processor = OCRProcessor(
             languages=settings.OCR_EASYOCR_LANGUAGES,
-            min_confidence=settings.OCR_MIN_CONFIDENCE
+            min_confidence=settings.OCR_MIN_CONFIDENCE,
         )
     return _ocr_processor
 
@@ -99,6 +101,7 @@ def get_ocr_processor() -> OCRProcessor:
 # For backward compatibility, create a property-like access
 class _OCRProcessorProxy:
     """Proxy to lazily access the OCR processor"""
+
     def __getattr__(self, name: str):
         return getattr(get_ocr_processor(), name)
 
