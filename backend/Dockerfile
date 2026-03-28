@@ -1,13 +1,29 @@
-FROM node:21.2.0
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN npm install
+# Install UV
+RUN pip install --no-cache-dir uv
 
+# Copy project configuration
+COPY pyproject.toml ./
+
+# Install dependencies with UV
+RUN uv pip install --system -e .
+
+# Copy application code
 COPY . .
 
-EXPOSE 3000
+# Expose port
+EXPOSE 8000
 
-CMD ["npm", "run", "start"]
+# Run the application
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
