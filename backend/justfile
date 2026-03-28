@@ -1,0 +1,91 @@
+# FastAPI Backend Development Tasks
+
+# Install dependencies
+install:
+    uv sync --all-groups
+
+# Sync dependencies
+sync:
+    uv sync
+
+# Sync with dev dependencies
+sync-dev:
+    uv sync --all-groups
+
+# Run development server with auto-reload
+dev:
+    uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Run production server
+serve:
+    uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# Run tests
+test:
+    uv run pytest -v
+
+# Run tests with coverage
+test-cov:
+    uv run pytest -v --cov=.
+
+# Lint code with ruff
+lint:
+    uv run ruff check .
+
+# Format code with ruff
+format:
+    uv run ruff format .
+
+# Type checking with mypy
+type-check:
+    uv run mypy . --ignore-missing-imports
+
+# Run all quality checks (lint + type check)
+check: lint type-check
+
+# Create new Alembic migration
+migrate-create message:
+    uv run alembic revision --autogenerate -m "{{message}}"
+
+# Apply pending migrations
+migrate-up:
+    uv run alembic upgrade head
+
+# Rollback last migration
+migrate-down:
+    uv run alembic downgrade -1
+
+# View migration status
+migrate-status:
+    uv run alembic current
+
+# Build Docker image
+docker-build:
+    docker build -t redcross-lottery-api .
+
+# Run with docker-compose
+docker-up:
+    docker-compose up --build
+
+# Stop docker-compose
+docker-down:
+    docker-compose down
+
+# Clean cache and build artifacts
+clean:
+    find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+    find . -type f -name "*.pyc" -delete
+    find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
+    find . -type d -name ".ruff_cache" -exec rm -rf {} + 2>/dev/null || true
+    find . -type d -name ".mypy_cache" -exec rm -rf {} + 2>/dev/null || true
+    find . -type d -name ".venv" -exec rm -rf {} + 2>/dev/null || true
+
+# Setup: install dependencies and run migrations
+setup: install migrate-up
+
+# Development workflow: format, lint, type-check, and test
+validate: format lint type-check test
+
+# Show available commands
+help:
+    just --list 
